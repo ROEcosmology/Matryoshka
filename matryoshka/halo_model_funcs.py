@@ -7,7 +7,7 @@ import astropy.units as units
 from scipy import constants as consts
 #from hmf.density_field.halofit import halofit
 from .halofit import halofit
-from scipy.integrate import simps, quad
+from scipy.integrate import simpson, quad
 
 
 def unnormed_P(k, T, ns):
@@ -491,7 +491,7 @@ class TopHatrep:
         # we multiply by k because our steps are in logk.
         rest = self.power * self.k ** (3 + order * 2)
         integ = rest * self.k_space(rk) ** 2
-        sigma = (0.5 / np.pi ** 2) * simps(integ, dx=dlnk, axis=-1)
+        sigma = (0.5 / np.pi ** 2) * simpson(integ, dx=dlnk, axis=-1)
         return np.sqrt(sigma)
 
     def k_space(self, kr):

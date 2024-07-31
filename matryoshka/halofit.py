@@ -9,7 +9,7 @@ has also been changed to match the rest of `matryoshka`.
 '''
 import warnings
 import numpy as np
-from scipy.integrate import simps as _simps
+from scipy.integrate import simpson as _simps
 import copy
 from scipy.interpolate import InterpolatedUnivariateSpline as _spline
 
