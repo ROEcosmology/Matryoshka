@@ -1,6 +1,17 @@
-.DS_Store
-.vscode
-__pycache__
+# Build/compilation
+__pycache__/
+*.py[cod]
+
+# Distributions
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+# Tests
+.pytest_cache/
+
+# Misc
 .ipynb_checkpoints
-matryoshka.egg-info
-.pytest_cache
+.DS_Store
+.vscode/
