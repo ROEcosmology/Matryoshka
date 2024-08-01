@@ -1,9 +1,16 @@
 # Matryoshka
-A Python package for predicting the galaxy power spectrum with a neural network (NN) based emulator.
+
+A Python package for predicting the galaxy power spectrum with a neural network (NN)
+based emulator.
+
+> [!IMPORTANT]
+> This is a modified, developmental version of Jamie Donald-McCann's Matryosha.
+> There is no API change, except the underlying syntax has been updated to
+> match dependency updates and the docstrings have been enhanced.
 
 ## Installation
 
-The package can be installed by cloning this repository and using pip.
+The package can be installed by cloning this repository and using Pip in editable mode.
 
 ```
 git clone https://github.com/JDonaldM/Matryoshka
@@ -13,40 +20,58 @@ pip install -e .
 
 ## Basic usage
 
-The example bellow shows how to generate a prediction for a Planck18 LCDM transfer function using `matryoshka`.
+The example bellow shows how to generate a prediction for a Planck18 LCDM
+transfer function using `matryoshka`.
 
 ```python
+import matryoshka.emulator as matry
 import numpy as np
-import matryoshka.emulator as Matry
 from astropy.cosmology import Planck18
 
-COSMO = np.array([
+cosmo = np.array([
     Planck18.Om0,
     Planck18.Ob0,
-    Planck18.H0.value/100,
+    Planck18.h,
     Planck18.Neff,
     -1.0
 ])
 
-TransferEmu = Matry.Transfer()
+transfer_emu = matry.Transfer()
 
-EmuPred = TransferEmu.emu_predict(COSMO)
+emu_pred = transfer_emu.emu_predict(cosmo)
 ```
 
-For more examples and full documentation see https://matryoshka-emu.readthedocs.io/en/latest/
+For more examples and full documentation, see
+https://matryoshka-emu.readthedocs.io/en/latest/
 
-## New in v0.2.0
+## Change log
 
-In this version of `matryoshka` we include an emulator for predicicting multipoles of the power spectrum that would be calculated using the EFTofLSS method. This EFT emulator provides a roughly 500X spped up compared to the EFTofLSS code [PyBird](https://github.com/pierrexyz/pybird), and prodcues predictions that are accurate withing 1% (at 68%CI).
+### v0.2.0
 
-## New in v0.1.0
+We include an emulator for predicicting multipoles of the power spectrum that would be
+calculated using the EFT-of-LSS method. This EFT emulator provides a roughly 500 times
+speed-up compared to the EFT-of-LSS code [PyBird](https://github.com/pierrexyz/pybird),
+and prodcues predictions that are accurate within 1% (at 68% CI).
 
-In the most recent version of `matryoshka` we have included an emulator to predict the nonlinear boost for the *matter* power spectrum that has been trained on the [Quijote simulations](https://arxiv.org/abs/1909.05273). We also include a version of the transfer function emulator that has been trained on the Quijote sample space.
+### v0.1.0
 
-## A note about the nonlinear boost component emulator
+We include an emulator to predict the nonlinear boost for the *matter* power spectrum
+that has been trained on the [Quijote simulations](https://arxiv.org/abs/1909.05273).
+We also include a version of the transfer function emulator that has been trained on
+the Quijote sample space.
 
-In the current version of `matryoshka` the nonlinear boost component emulator has only been trained with training data generated with [HALOFIT](https://iopscience.iop.org/article/10.1088/0004-637X/761/2/152) and serves to demonstrate the use of `matryoshka`. Future versions will include a nonlinear boost component emulator trained with data produced with high resolution N-body simulatios.
+## Nonlinear boost component emulator
 
-## License & Attribution
+> [!NOTE]
+> In the current version of `matryoshka` the nonlinear boost component emulator has
+> only been trained with training data generated with
+> [HALOFIT](https://iopscience.iop.org/article/10.1088/0004-637X/761/2/152) and serves
+> to demonstrate the use of `matryoshka`. Future versions will include a nonlinear boost
+> component emulator trained with data produced with high resolution N-body simulatios.
 
-Copyright 2021 Jamie Donald-McCann. `matryoshka` is free to use under the MIT license, if you find it useful for your research please cite [Donald-McCann et al. (2021)](https://arxiv.org/abs/2109.15236).
+## License & attribution
+
+Copyright 2021 Jamie Donald-McCann. `matryoshka` is free to use under the MIT license.
+
+If you find it useful for your research, please cite
+[Donald-McCann et al. (2021)](https://arxiv.org/abs/2109.15236).
